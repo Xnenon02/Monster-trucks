@@ -7,13 +7,15 @@ using Microsoft.Data.Sqlite;
 
 namespace Monster_trucks.Data
 {
-    public static class DatabaseConnection
+    public class DatabaseConnection
     {
-        private const string ConnectionString = "Data Source=monstertracker.db";
+        private const string ConnectionString = "Data Source=monstertracker.db;Version=3;";
 
-        public static SqliteConnection GetConnection()
+        public SqliteConnection GetConnection()
         {
-            return new SqliteConnection(ConnectionString);
+            var conn = new SqliteConnection(ConnectionString);
+            conn.Open();
+            return conn;
         }
     }
 

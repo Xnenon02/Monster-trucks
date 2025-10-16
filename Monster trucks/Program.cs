@@ -1,10 +1,17 @@
-﻿namespace Monster_trucks
+﻿using Monster_trucks.Data;
+using Monster_trucks.Services;
+
+namespace Monster_trucks
 {
-    internal class Program
+    class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello, World!");
+            var dbConnection = new DatabaseConnection();
+            var facade = new MonsterTrackerFacade(dbConnection);
+
+            var ui = new UI.ConsoleUI(facade);
+            ui.Run();
         }
     }
 }
