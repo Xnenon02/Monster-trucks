@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SQLite;
+using Microsoft.Data.Sqlite;
 
 namespace Monster_trucks.Data
 {
@@ -11,9 +11,10 @@ namespace Monster_trucks.Data
     {
         private const string ConnectionString = "Data Source=monstertracker.db";
 
-        public static SQLiteConnection GetConnection()
+        public static SqliteConnection GetConnection()
         {
-            return new SQLiteConnection(ConnectionString);
+            return new SqliteConnection(ConnectionString);
         }
     }
+
 }
