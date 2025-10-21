@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Monster_trucks.Models;
+using Monster_trucks.Data;
+
 
 namespace Monster_trucks.Models
 {
     using System;
 
-    namespace MonsterTracker.Models
-    {
+    
+    
         public class Observation
         {
             public int Id { get; set; }
@@ -21,4 +24,4 @@ namespace Monster_trucks.Models
         }
     }
 
-}
+

@@ -15,12 +15,12 @@ namespace Monster_trucks.Services
         private readonly HunterRepository _hunterRepo;
         private readonly ObservationRepository _observationRepo;
 
-        public MonsterTrackerFacade(DatabaseConnection dbConnection)
+        public MonsterTrackerFacade(string connectionString)
         {
-            _monsterRepo = new MonsterRepository(dbConnection);
-            _locationRepo = new LocationRepository(dbConnection);
-            _hunterRepo = new HunterRepository(dbConnection);
-            _observationRepo = new ObservationRepository(dbConnection);
+            _monsterRepo = new MonsterRepository(connectionString);
+            _locationRepo = new LocationRepository(connectionString);
+            _hunterRepo = new HunterRepository(connectionString);
+            _observationRepo = new ObservationRepository(connectionString);
         }
 
         // Monster
