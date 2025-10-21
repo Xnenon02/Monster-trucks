@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 
 namespace Monster_trucks.Models
 {
-    public class Observation
+    using System;
+
+    namespace MonsterTracker.Models
     {
-        public int Id { get; set; }
-        public int MonsterId { get; set; }
-        public int LocationId { get; set; }
-        public int HunterId { get; set; }
-        public DateTime Date { get; set; }
-        public string Notes { get; set; } = null!;
+        public class Observation
+        {
+            public int Id { get; set; }
+            public int MonsterId { get; set; }
+            public int LocationId { get; set; }
+            public int HunterId { get; set; }
+            public DateTime ObservedAt { get; set; }  // lägg till
+            public string Notes { get; set; }         // lägg till
+        }
     }
+
 }

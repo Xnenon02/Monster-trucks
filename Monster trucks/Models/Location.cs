@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace Monster_trucks.Models
 {
-    public class Location
+    namespace MonsterTracker.Models
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = null!;
-        public string Description { get; set; } = null!;
+        public class Location
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public int DangerLevel { get; set; }     // lägg till
+        }
     }
+
 }

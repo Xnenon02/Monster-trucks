@@ -20,7 +20,7 @@ namespace Monster_trucks.Data
         public void Create(Monster monster)
         {
             using var conn = _dbConnection.GetConnection();
-            using var cmd = new SQLiteCommand("INSERT INTO Monster (Name, Type, DangerLevel) VALUES (@name, @type, @dangerLevel)", conn);
+            using var cmd = new SqliteCommand("INSERT INTO Monster (Name, Type, DangerLevel) VALUES (@name, @type, @dangerLevel)", conn);
             cmd.Parameters.AddWithValue("@name", monster.Name);
             cmd.Parameters.AddWithValue("@type", monster.Type);
             cmd.Parameters.AddWithValue("@dangerLevel", monster.DangerLevel);
@@ -31,7 +31,7 @@ namespace Monster_trucks.Data
         {
             var monsters = new List<Monster>();
             using var conn = _dbConnection.GetConnection();
-            using var cmd = new SQLiteCommand("SELECT Id, Name, Type, DangerLevel FROM Monster", conn);
+            using var cmd = new SqliteCommand("SELECT Id, Name, Type, DangerLevel FROM Monster", conn);
             using var reader = cmd.ExecuteReader();
 
             while (reader.Read())
@@ -50,7 +50,7 @@ namespace Monster_trucks.Data
         public Monster? ReadById(int id)
         {
             using var conn = _dbConnection.GetConnection();
-            using var cmd = new SQLiteCommand("SELECT Id, Name, Type, DangerLevel FROM Monster WHERE Id = @id", conn);
+            using var cmd = new SqliteCommand("SELECT Id, Name, Type, DangerLevel FROM Monster WHERE Id = @id", conn);
             cmd.Parameters.AddWithValue("@id", id);
             using var reader = cmd.ExecuteReader();
 
@@ -70,7 +70,7 @@ namespace Monster_trucks.Data
         public void Update(Monster monster)
         {
             using var conn = _dbConnection.GetConnection();
-            using var cmd = new SQLiteCommand("UPDATE Monster SET Name = @name, Type = @type, DangerLevel = @dangerLevel WHERE Id = @id", conn);
+            using var cmd = new SqliteCommand("UPDATE Monster SET Name = @name, Type = @type, DangerLevel = @dangerLevel WHERE Id = @id", conn);
             cmd.Parameters.AddWithValue("@name", monster.Name);
             cmd.Parameters.AddWithValue("@type", monster.Type);
             cmd.Parameters.AddWithValue("@dangerLevel", monster.DangerLevel);
@@ -81,7 +81,7 @@ namespace Monster_trucks.Data
         public void Delete(int id)
         {
             using var conn = _dbConnection.GetConnection();
-            using var cmd = new SQLiteCommand("DELETE FROM Monster WHERE Id = @id", conn);
+            using var cmd = new SqliteCommand("DELETE FROM Monster WHERE Id = @id", conn);
             cmd.Parameters.AddWithValue("@id", id);
             cmd.ExecuteNonQuery();
         }

@@ -20,7 +20,7 @@ namespace Monster_trucks.Data
         public void Create(Hunter hunter)
         {
             using var conn = _dbConnection.GetConnection();
-            using var cmd = new SQLiteCommand("INSERT INTO Hunter (Name, ContactInfo) VALUES (@name, @contact)", conn);
+            using var cmd = new SqliteCommand("INSERT INTO Hunter (Name, ContactInfo) VALUES (@name, @contact)", conn);
             cmd.Parameters.AddWithValue("@name", hunter.Name);
             cmd.Parameters.AddWithValue("@contact", hunter.ContactInfo);
             cmd.ExecuteNonQuery();
@@ -30,7 +30,7 @@ namespace Monster_trucks.Data
         {
             var hunters = new List<Hunter>();
             using var conn = _dbConnection.GetConnection();
-            using var cmd = new SQLiteCommand("SELECT Id, Name, ContactInfo FROM Hunter", conn);
+            using var cmd = new SqliteCommand("SELECT Id, Name, ContactInfo FROM Hunter", conn);
             using var reader = cmd.ExecuteReader();
 
             while (reader.Read())

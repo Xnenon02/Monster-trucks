@@ -20,7 +20,7 @@ namespace Monster_trucks.Data
         public void Create(Observation observation)
         {
             using var conn = _dbConnection.GetConnection();
-            using var cmd = new SQLiteCommand(@"
+            using var cmd = new SqliteCommand(@"
                 INSERT INTO Observation (MonsterId, LocationId, HunterId, Date, Details) 
                 VALUES (@monsterId, @locationId, @hunterId, @date, @details)", conn);
 
@@ -37,7 +37,7 @@ namespace Monster_trucks.Data
         {
             var observations = new List<Observation>();
             using var conn = _dbConnection.GetConnection();
-            using var cmd = new SQLiteCommand("SELECT Id, MonsterId, LocationId, HunterId, Date, Details FROM Observation", conn);
+            using var cmd = new SqliteCommand("SELECT Id, MonsterId, LocationId, HunterId, Date, Details FROM Observation", conn);
             using var reader = cmd.ExecuteReader();
 
             while (reader.Read())
