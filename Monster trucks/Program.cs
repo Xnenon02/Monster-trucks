@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Data.Sqlite;
-
 using Monster_trucks.Data;
 using Monster_trucks.Services;
 
@@ -11,30 +10,20 @@ namespace Monster_trucks
     {
         static void Main()
         {
-            // Get the folder where the executable runs (bin/Debug/netX.Y)
+            // === 1️⃣ Hitta rätt sökväg för databasen ===
             string exePath = AppDomain.CurrentDomain.BaseDirectory;
-
-            // Go up 3 levels to project root folder
             string projectRoot = Path.GetFullPath(Path.Combine(exePath, @"..\..\.."));
-
-            // Define folder for the database inside the project (e.g. "Data")
             string dbFolder = Path.Combine(projectRoot, "Data");
 
-            // Make sure the folder exists
             if (!Directory.Exists(dbFolder))
                 Directory.CreateDirectory(dbFolder);
 
-            // Full path to the DB file
             string dbPath = Path.Combine(dbFolder, "monstertracker.db");
-            Console.WriteLine("Using DB at: " + dbPath);
-
-
-            // Connection string with the full path
             string connectionString = $"Data Source={dbPath}";
 
-            Console.WriteLine("Using DB at: " + dbPath);
+            Console.WriteLine("Använder databas: " + dbPath);
 
-            // Initialize and run your database connection and repositories with the dynamic connection string
+            // === 2️⃣ Initiera databas och repositories ===
             var dbConnection = new DatabaseConnection(connectionString);
             dbConnection.InitializeDatabase();
 
@@ -45,6 +34,114 @@ namespace Monster_trucks
 
             var seeder = new DatabaseSeeder(monsterRepo, locationRepo, hunterRepo, observationRepo, connectionString);
             seeder.Seed();
+
+            // === 3️⃣ Starta enkel meny ===
+            RunMenu(monsterRepo, locationRepo, hunterRepo);
+        }
+
+        static void RunMenu(
+            MonsterRepository monsterRepo,
+            LocationRepository locationRepo,
+            HunterRepository hunterRepo)
+        {
+            bool running = true;
+            while (running)
+            {
+                Console.Clear();
+                Console.WriteLine("=== MONSTER TRACKER ===");
+                Console.WriteLine("1. Visa alla jägare");
+                Console.WriteLine("2. Visa alla platser");
+                Console.WriteLine("3. Visa alla monster");
+                Console.WriteLine("0. Avsluta");
+                Console.Write("Välj ett alternativ: ");
+
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        ShowHunters(hunterRepo);
+                        break;
+                    case "2":
+                        ShowLocations(locationRepo);
+                        break;
+                    case "3":
+                        ShowMonsters(monsterRepo);
+                        break;
+                    case "0":
+                        running = false;
+                        break;
+                    default:
+                        Console.WriteLine("Ogiltigt val!");
+                        break;
+                }
+
+                if (running)
+                {
+                    Console.WriteLine("\nTryck på valfri tangent för att fortsätta...");
+                    Console.ReadKey();
+                }
+            }
+        }
+
+        // === Visa jägare ===
+        static void ShowHunters(HunterRepository repo)
+        {
+            var hunters = repo.ReadAll();
+            Console.Clear();
+            Console.WriteLine("=== JÄGARE ===");
+            if (hunters.Count == 0)
+            {
+                Console.WriteLine("Inga jägare hittades.");
+                return;
+            }
+
+            foreach (var h in hunters)
+            {
+                Console.WriteLine($"Namn: {h.Name}");
+                Console.WriteLine($"Erfarenhetsnivå: {h.ExperienceLevel}");
+                Console.WriteLine($"Kontakt: {h.ContactInfo}\n");
+            }
+        }
+
+        // === Visa platser ===
+        static void ShowLocations(LocationRepository repo)
+        {
+            var locations = repo.ReadAll();
+            Console.Clear();
+            Console.WriteLine("=== PLATSER ===");
+            if (locations.Count == 0)
+            {
+                Console.WriteLine("Inga platser hittades.");
+                return;
+            }
+
+            foreach (var l in locations)
+            {
+                Console.WriteLine($"Plats: {l.Name}");
+                Console.WriteLine($"Beskrivning: {l.Description}");
+                Console.WriteLine($"Farlighetsnivå: {l.DangerLevel}\n");
+            }
+        }
+
+        // === Visa monster ===
+        static void ShowMonsters(MonsterRepository repo)
+        {
+            var monsters = repo.ReadAll();
+            Console.Clear();
+            Console.WriteLine("=== MONSTER ===");
+            if (monsters.Count == 0)
+            {
+                Console.WriteLine("Inga monster hittades.");
+                return;
+            }
+
+            foreach (var m in monsters)
+            {
+                Console.WriteLine($"Namn: {m.Name}");
+                Console.WriteLine($"Art: {m.Species}");
+                Console.WriteLine($"Farlighetsgrad: {m.DangerRating}/5\n");
+            }
         }
     }
 }
