@@ -61,3 +61,4 @@ namespace Monster_trucks.Data
         }
     }
 }
+// ja aså här behöves det ingen fusklapp aså namet är väll ganska uppenbart va?

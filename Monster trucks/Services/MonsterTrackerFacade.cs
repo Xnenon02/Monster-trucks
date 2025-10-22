@@ -51,3 +51,4 @@ namespace Monster_trucks.Services
     }
 }
 
+// fusklapp: Den här klassen fungerar som ett förenklat gränssnitt som samlar all logik för att hantera monster, platser, jägare och observationer i databasen

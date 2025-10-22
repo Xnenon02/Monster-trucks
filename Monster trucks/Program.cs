@@ -145,3 +145,4 @@ namespace Monster_trucks
         }
     }
 }
+// mera fusklappar Den här delen är programmets startpunkt – den initierar databasen, fyller den med testdata, och startar en meny där användaren kan se alla jägare, platser och monster

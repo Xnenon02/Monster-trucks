@@ -99,3 +99,4 @@ namespace Monster_trucks.Data
     }
 }
 
+// ja en till fusklapp Repositories fungerar som mellanhand mellan programmet och databasen – de innehåller all logik för att spara, läsa, uppdatera och ta bort data i varje tabell
