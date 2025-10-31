@@ -1,10 +1,5 @@
--- ============================================
--- monstertracker_schema.sql
--- Creates all tables for MonsterTracker
--- ============================================
-
 -- Monster table
-CREATE TABLE IF NOT EXISTS Monsters (
+CREATE TABLE IF NOT EXISTS Monster (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Name TEXT NOT NULL UNIQUE,
     Species TEXT NOT NULL,
@@ -12,7 +7,7 @@ CREATE TABLE IF NOT EXISTS Monsters (
 );
 
 -- Location table
-CREATE TABLE IF NOT EXISTS Locations (
+CREATE TABLE IF NOT EXISTS Location (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Name TEXT NOT NULL UNIQUE,
     Description TEXT NOT NULL,
@@ -20,7 +15,7 @@ CREATE TABLE IF NOT EXISTS Locations (
 );
 
 -- Hunter table
-CREATE TABLE IF NOT EXISTS Hunters (
+CREATE TABLE IF NOT EXISTS Hunter (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     Name TEXT NOT NULL UNIQUE,
     ExperienceLevel INTEGER NOT NULL CHECK (ExperienceLevel BETWEEN 1 AND 10),
@@ -28,24 +23,24 @@ CREATE TABLE IF NOT EXISTS Hunters (
 );
 
 -- Observation table
-CREATE TABLE IF NOT EXISTS Observations (
+CREATE TABLE IF NOT EXISTS Observation (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     MonsterId INTEGER NOT NULL,
     LocationId INTEGER NOT NULL,
     HunterId INTEGER NOT NULL,
-    ObservedAt TEXT NOT NULL, -- Stored as TEXT in SQLite
+    ObservedAt TEXT NOT NULL,
     Notes TEXT,
-    FOREIGN KEY (MonsterId) REFERENCES Monsters(Id),
-    FOREIGN KEY (LocationId) REFERENCES Locations(Id),
-    FOREIGN KEY (HunterId) REFERENCES Hunters(Id)
+    FOREIGN KEY (MonsterId) REFERENCES Monster(Id),
+    FOREIGN KEY (LocationId) REFERENCES Location(Id),
+    FOREIGN KEY (HunterId) REFERENCES Hunter(Id)
 );
 
--- ObservationAudit table (Optional feature)
-CREATE TABLE IF NOT EXISTS ObservationAudit (
+-- ObservationAudit table
+CREATE TABLE IF NOT EXISTS AuditLog (
     Id INTEGER PRIMARY KEY AUTOINCREMENT,
     ObservationId INTEGER NOT NULL,
     OldLocationId INTEGER NOT NULL,
     NewLocationId INTEGER NOT NULL,
     ChangedAt TEXT NOT NULL,
-    FOREIGN KEY (ObservationId) REFERENCES Observations(Id)
+    FOREIGN KEY (ObservationId) REFERENCES Observation(Id)
 );
