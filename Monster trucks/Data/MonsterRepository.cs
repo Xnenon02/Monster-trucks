@@ -33,7 +33,7 @@ namespace Monster_trucks.Data
             using (var cmd = connection.CreateCommand())
             {
                 cmd.Transaction = transaction;
-                cmd.CommandText = "INSERT INTO Monsters (Name, Species, DangerRating) VALUES (@n, @s, @d)";
+                cmd.CommandText = "INSERT INTO Monster (Name, Species, DangerRating) VALUES (@n, @s, @d)";
                 cmd.Parameters.AddWithValue("@n", monster.Name);
                 cmd.Parameters.AddWithValue("@s", monster.Species);
                 cmd.Parameters.AddWithValue("@d", monster.DangerRating);
@@ -52,7 +52,7 @@ namespace Monster_trucks.Data
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Id, Name, Species, DangerRating FROM Monsters";
+                    cmd.CommandText = "SELECT Id, Name, Species, DangerRating FROM Monster";
                     using (var r = cmd.ExecuteReader())
                     {
                         while (r.Read())
@@ -85,7 +85,7 @@ namespace Monster_trucks.Data
             using (var cmd = connection.CreateCommand())
             {
                 cmd.Transaction = transaction;
-                cmd.CommandText = "SELECT Id, Name, Species, DangerRating FROM Monsters WHERE Name = @name";
+                cmd.CommandText = "SELECT Id, Name, Species, DangerRating FROM Monster WHERE Name = @name";
                 cmd.Parameters.AddWithValue("@name", name);
 
                 using (var reader = cmd.ExecuteReader())
@@ -120,7 +120,7 @@ namespace Monster_trucks.Data
             using (var cmd = connection.CreateCommand())
             {
                 cmd.Transaction = transaction;
-                cmd.CommandText = "SELECT Id, Name, Species, DangerRating FROM Monsters WHERE Id = @id";
+                cmd.CommandText = "SELECT Id, Name, Species, DangerRating FROM Monster WHERE Id = @id";
                 cmd.Parameters.AddWithValue("@id", id);
 
                 using (var reader = cmd.ExecuteReader())
@@ -154,7 +154,7 @@ namespace Monster_trucks.Data
             {
                 cmd.Transaction = transaction;
                 cmd.CommandText = @"
-            UPDATE Monsters 
+            UPDATE Monster 
             SET Name = @name, Species = @species, DangerRating = @dangerRating 
             WHERE Id = @id";
 
@@ -180,7 +180,7 @@ namespace Monster_trucks.Data
             using (var cmd = connection.CreateCommand())
             {
                 cmd.Transaction = transaction;
-                cmd.CommandText = "DELETE FROM Monsters WHERE Id = @id";
+                cmd.CommandText = "DELETE FROM Monster WHERE Id = @id";
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
             }
@@ -205,7 +205,7 @@ namespace Monster_trucks.Data
             using (var cmd = connection.CreateCommand())
             {
                 cmd.Transaction = transaction;
-                cmd.CommandText = "SELECT COUNT(*) FROM Monsters";
+                cmd.CommandText = "SELECT COUNT(*) FROM Monster";
                 count = Convert.ToInt32(cmd.ExecuteScalar());
             }
 

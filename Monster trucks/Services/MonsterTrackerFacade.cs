@@ -28,7 +28,7 @@ namespace Monster_trucks.Services
 
         // === CRUD: Monster ===
         public void AddMonster(Monster monster) => _monsterRepo.Create(monster);
-        public List<Monster> GetAllMonsters() => _monsterRepo.ReadAll();
+        public List<Monster> GetAllMonster() => _monsterRepo.ReadAll();
         public Monster? GetMonsterById(int id) => _monsterRepo.ReadById(id);
         public void UpdateMonster(Monster monster) => _monsterRepo.Update(monster);
 
@@ -46,22 +46,22 @@ namespace Monster_trucks.Services
 
         // === CRUD: Location ===
         public void AddLocation(Location location) => _locationRepo.Create(location);
-        public List<Location> GetAllLocations() => _locationRepo.ReadAll();
+        public List<Location> GetAllLocation() => _locationRepo.ReadAll();
 
         // === CRUD: Hunter ===
         public void AddHunter(Hunter hunter) => _hunterRepo.Create(hunter);
-        public List<Hunter> GetAllHunters() => _hunterRepo.ReadAll();
+        public List<Hunter> GetAllHunter() => _hunterRepo.ReadAll();
 
         // === CRUD: Observation ===
         public void AddObservation(Observation observation) => _observationRepo.Create(observation);
-        public List<Observation> GetAllObservations() => _observationRepo.ReadAll();
+        public List<Observation> GetAllObservation() => _observationRepo.ReadAll();
 
         // ======================================================
         // 📊 RAPPORTER & STATISTIK (VG)
         // ======================================================
 
         // 1️⃣ Mest aktiva monster
-        public void ReportMostActiveMonsters()
+        public void ReportMostActiveMonster()
         {
             using var conn = new SqliteConnection(_connectionString);
             conn.Open();
@@ -84,7 +84,7 @@ namespace Monster_trucks.Services
         }
 
         // 2️⃣ Farligaste områden
-        public void ReportMostDangerousLocations()
+        public void ReportMostDangerousLocation()
         {
             using var conn = new SqliteConnection(_connectionString);
             conn.Open();
@@ -108,7 +108,7 @@ namespace Monster_trucks.Services
         }
 
         // 3️⃣ Jägarstatistik
-        public void ReportHunterStats()
+        public void ReportHuntertats()
         {
             using var conn = new SqliteConnection(_connectionString);
             conn.Open();
@@ -134,7 +134,7 @@ namespace Monster_trucks.Services
         // 💾 EXPORT (VG)
         // ======================================================
 
-        public void ExportObservationsToCsv(string filePath)
+        public void ExportObservationToCsv(string filePath)
         {
             using var conn = new SqliteConnection(_connectionString);
             conn.Open();
@@ -162,9 +162,9 @@ namespace Monster_trucks.Services
             Console.WriteLine($"✅ Exporterad till CSV: {filePath}");
         }
 
-        public void ExportObservationsToJson(string filePath)
+        public void ExportObservationToJson(string filePath)
         {
-            var observations = new List<object>();
+            var Observation = new List<object>();
             using var conn = new SqliteConnection(_connectionString);
             conn.Open();
 
@@ -181,7 +181,7 @@ namespace Monster_trucks.Services
 
             while (reader.Read())
             {
-                observations.Add(new
+                Observation.Add(new
                 {
                     Id = reader.GetInt32(0),
                     Monster = reader.GetString(1),
@@ -192,7 +192,7 @@ namespace Monster_trucks.Services
                 });
             }
 
-            string json = JsonSerializer.Serialize(observations, new JsonSerializerOptions { WriteIndented = true });
+            string json = JsonSerializer.Serialize(Observation, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, json);
 
             Console.WriteLine($"✅ Exporterad till JSON: {filePath}");

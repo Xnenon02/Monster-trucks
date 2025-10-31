@@ -32,7 +32,7 @@ namespace Monster_trucks.Data
             {
                 cmd.Transaction = transaction;
                 cmd.CommandText = @"
-                    INSERT INTO Observations (MonsterId, LocationId, HunterId, ObservedAt, Notes)
+                    INSERT INTO Observation (MonsterId, LocationId, HunterId, ObservedAt, Notes)
                     VALUES (@m, @l, @h, @o, @n)";
                 cmd.Parameters.AddWithValue("@m", observation.MonsterId);
                 cmd.Parameters.AddWithValue("@l", observation.LocationId);
@@ -54,7 +54,7 @@ namespace Monster_trucks.Data
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Id, MonsterId, LocationId, HunterId, ObservedAt, Notes FROM Observations";
+                    cmd.CommandText = "SELECT Id, MonsterId, LocationId, HunterId, ObservedAt, Notes FROM Observation";
                     using (var r = cmd.ExecuteReader())
                     {
                         while (r.Read())
@@ -89,7 +89,7 @@ namespace Monster_trucks.Data
             using (var cmd = connection.CreateCommand())
             {
                 cmd.Transaction = transaction;
-                cmd.CommandText = "SELECT COUNT(*) FROM Observations";
+                cmd.CommandText = "SELECT COUNT(*) FROM Observation";
                 count = Convert.ToInt32(cmd.ExecuteScalar());
             }
 

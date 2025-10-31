@@ -37,15 +37,15 @@ namespace Monster_trucks.Services
                 {
                     try
                     {
-                        // --- Locations ---
-                        var locations = new[]
+                        // --- Location ---
+                        var Location = new[]
                         {
                             new Location { Name = "Svartskogen", Description = "Tät skog, dimma ofta", DangerLevel = 3 },
                             new Location { Name = "Öde Tjärn", Description = "Säregen sjö, kall", DangerLevel = 4 },
                             new Location { Name = "Klipphamn", Description = "Hamnområde, ruiner", DangerLevel = 2 },
                         };
 
-                        foreach (var loc in locations)
+                        foreach (var loc in Location)
                         {
                             if (_locationRepo.GetByName(loc.Name, connection, transaction) == null)
                             {
@@ -53,15 +53,15 @@ namespace Monster_trucks.Services
                             }
                         }
 
-                        // --- Monsters ---
-                        var monsters = new[]
+                        // --- Monster ---
+                        var Monster = new[]
                         {
                             new Monster { Name = "Nattalv", Species = "Alviform", DangerRating = 2 },
                             new Monster { Name = "Tjärnvarelse", Species = "Anomali", DangerRating = 5 },
                             new Monster { Name = "Stenklo", Species = "Golem", DangerRating = 3 },
                         };
 
-                        foreach (var m in monsters)
+                        foreach (var m in Monster)
                         {
                             if (_monsterRepo.GetByName(m.Name, connection, transaction) == null)
                             {
@@ -69,15 +69,15 @@ namespace Monster_trucks.Services
                             }
                         }
 
-                        // --- Hunters ---
-                        var hunters = new[]
+                        // --- Hunter ---
+                        var Hunter = new[]
                         {
                             new Hunter { Name = "Anna J.", ExperienceLevel = 4 },
                             new Hunter { Name = "Lars B.", ExperienceLevel = 2 },
                             new Hunter { Name = "Maja K.", ExperienceLevel = 5 },
                         };
 
-                        foreach (var h in hunters)
+                        foreach (var h in Hunter)
                         {
                             if (_hunterRepo.GetByName(h.Name, connection, transaction) == null)
                             {
@@ -85,7 +85,7 @@ namespace Monster_trucks.Services
                             }
                         }
 
-                        // --- Observations ---
+                        // --- Observation ---
                         if (_observationRepo.Count(connection, transaction) == 0)
                         {
                             var svartskogen = _locationRepo.GetByName("Svartskogen", connection, transaction);
@@ -97,7 +97,7 @@ namespace Monster_trucks.Services
                             var anna = _hunterRepo.GetByName("Anna J.", connection, transaction);
                             var lars = _hunterRepo.GetByName("Lars B.", connection, transaction);
 
-                            var observations = new[]
+                            var Observation = new[]
                             {
                                 new Observation
                                 {
@@ -125,7 +125,7 @@ namespace Monster_trucks.Services
                                 }
                             };
 
-                            foreach (var obs in observations)
+                            foreach (var obs in Observation)
                             {
                                 _observationRepo.Create(obs, connection, transaction);
                             }

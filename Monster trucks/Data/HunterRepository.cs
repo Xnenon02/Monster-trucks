@@ -31,7 +31,7 @@ namespace Monster_trucks.Data
             using (var cmd = connection.CreateCommand())
             {
                 cmd.Transaction = transaction;
-                cmd.CommandText = "INSERT INTO Hunters (Name, ExperienceLevel) VALUES (@n, @e)";
+                cmd.CommandText = "INSERT INTO Hunter (Name, ExperienceLevel) VALUES (@n, @e)";
                 cmd.Parameters.AddWithValue("@n", hunter.Name);
                 cmd.Parameters.AddWithValue("@e", hunter.ExperienceLevel);
                 cmd.ExecuteNonQuery();
@@ -49,7 +49,7 @@ namespace Monster_trucks.Data
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Id, Name, ExperienceLevel FROM Hunters";
+                    cmd.CommandText = "SELECT Id, Name, ExperienceLevel FROM Hunter";
                     using (var r = cmd.ExecuteReader())
                     {
                         while (r.Read())
@@ -81,7 +81,7 @@ namespace Monster_trucks.Data
             using (var cmd = connection.CreateCommand())
             {
                 cmd.Transaction = transaction;
-                cmd.CommandText = "SELECT Id, Name, ExperienceLevel FROM Hunters WHERE Name = @n";
+                cmd.CommandText = "SELECT Id, Name, ExperienceLevel FROM Hunter WHERE Name = @n";
                 cmd.Parameters.AddWithValue("@n", name);
 
                 using (var reader = cmd.ExecuteReader())
@@ -117,7 +117,7 @@ namespace Monster_trucks.Data
             using (var cmd = connection.CreateCommand())
             {
                 cmd.Transaction = transaction;
-                cmd.CommandText = "SELECT COUNT(*) FROM Hunters";
+                cmd.CommandText = "SELECT COUNT(*) FROM Hunter";
                 count = Convert.ToInt32(cmd.ExecuteScalar());
             }
 

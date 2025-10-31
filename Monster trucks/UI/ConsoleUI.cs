@@ -38,16 +38,16 @@ namespace Monster_trucks.UI
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        ShowMonsters();
+                        ShowMonster();
                         break;
                     case "2":
-                        ShowLocations();
+                        ShowLocation();
                         break;
                     case "3":
-                        ShowHunters();
+                        ShowHunter();
                         break;
                     case "4":
-                        ShowObservations();
+                        ShowObservation();
                         break;
                     case "5":
                         ShowReportsMenu();
@@ -77,21 +77,21 @@ namespace Monster_trucks.UI
         }
 
         // === CRUD-visning ===
-        private void ShowMonsters()
+        private void ShowMonster()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("=== MONSTER ===");
             Console.ResetColor();
 
-            var monsters = _facade.GetAllMonsters();
-            if (monsters.Count == 0)
+            var Monster = _facade.GetAllMonster();
+            if (Monster.Count == 0)
             {
                 Console.WriteLine("Inga monster hittades.");
                 return;
             }
 
-            foreach (var m in monsters)
+            foreach (var m in Monster)
             {
                 Console.ForegroundColor = m.DangerRating switch
                 {
@@ -105,57 +105,57 @@ namespace Monster_trucks.UI
             }
         }
 
-        private void ShowLocations()
+        private void ShowLocation()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("=== PLATSER ===");
             Console.ResetColor();
 
-            var locations = _facade.GetAllLocations();
-            if (locations.Count == 0)
+            var Location = _facade.GetAllLocation();
+            if (Location.Count == 0)
             {
                 Console.WriteLine("Inga platser hittades.");
                 return;
             }
 
-            foreach (var l in locations)
+            foreach (var l in Location)
                 Console.WriteLine($"#{l.Id}: {l.Name} – Område: {l.Description}");
         }
 
-        private void ShowHunters()
+        private void ShowHunter()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("=== JÄGARE ===");
             Console.ResetColor();
 
-            var hunters = _facade.GetAllHunters();
-            if (hunters.Count == 0)
+            var Hunter = _facade.GetAllHunter();
+            if (Hunter.Count == 0)
             {
                 Console.WriteLine("Inga jägare hittades.");
                 return;
             }
 
-            foreach (var h in hunters)
+            foreach (var h in Hunter)
                 Console.WriteLine($"#{h.Id}: {h.Name} ({h.ExperienceLevel}) – Kontakt: {h.ContactInfo}");
         }
 
-        private void ShowObservations()
+        private void ShowObservation()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("=== OBSERVATIONER ===");
             Console.ResetColor();
 
-            var observations = _facade.GetAllObservations();
-            if (observations.Count == 0)
+            var Observation = _facade.GetAllObservation();
+            if (Observation.Count == 0)
             {
                 Console.WriteLine("Inga observationer hittades.");
                 return;
             }
 
-            foreach (var o in observations)
+            foreach (var o in Observation)
             {
                 Console.WriteLine($"Observation #{o.Id}");
                 Console.WriteLine($"MonsterId: {o.MonsterId}");
@@ -187,15 +187,15 @@ namespace Monster_trucks.UI
                 {
                     case "1":
                         Console.Clear();
-                        _facade.ReportMostActiveMonsters();
+                        _facade.ReportMostActiveMonster();
                         break;
                     case "2":
                         Console.Clear();
-                        _facade.ReportMostDangerousLocations();
+                        _facade.ReportMostDangerousLocation();
                         break;
                     case "3":
                         Console.Clear();
-                        _facade.ReportHunterStats();
+                        _facade.ReportHuntertats();
                         break;
                     case "0":
                         inReports = false;
@@ -260,13 +260,13 @@ namespace Monster_trucks.UI
         private void ExportCsv()
         {
             string filePath = Path.Combine(Environment.CurrentDirectory, "observationer.csv");
-            _facade.ExportObservationsToCsv(filePath);
+            _facade.ExportObservationToCsv(filePath);
         }
 
         private void ExportJson()
         {
             string filePath = Path.Combine(Environment.CurrentDirectory, "observationer.json");
-            _facade.ExportObservationsToJson(filePath);
+            _facade.ExportObservationToJson(filePath);
         }
 
         // === 🔄 FLYTTA OBSERVATION (TRANSAKTION) ===

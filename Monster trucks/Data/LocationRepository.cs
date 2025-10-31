@@ -31,7 +31,7 @@ namespace Monster_trucks.Data
             using (var cmd = connection.CreateCommand())
             {
                 cmd.Transaction = transaction;
-                cmd.CommandText = "INSERT INTO Locations (Name, Description, DangerLevel) VALUES (@n, @d, @l)";
+                cmd.CommandText = "INSERT INTO Location (Name, Description, DangerLevel) VALUES (@n, @d, @l)";
                 cmd.Parameters.AddWithValue("@n", location.Name);
                 cmd.Parameters.AddWithValue("@d", location.Description ?? "");
                 cmd.Parameters.AddWithValue("@l", location.DangerLevel);
@@ -50,7 +50,7 @@ namespace Monster_trucks.Data
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT Id, Name, Description, DangerLevel FROM Locations";
+                    cmd.CommandText = "SELECT Id, Name, Description, DangerLevel FROM Location";
                     using (var r = cmd.ExecuteReader())
                     {
                         while (r.Read())
@@ -83,7 +83,7 @@ namespace Monster_trucks.Data
             using (var cmd = connection.CreateCommand())
             {
                 cmd.Transaction = transaction;
-                cmd.CommandText = "SELECT Id, Name, Description, DangerLevel FROM Locations WHERE Name = @n";
+                cmd.CommandText = "SELECT Id, Name, Description, DangerLevel FROM Location WHERE Name = @n";
                 cmd.Parameters.AddWithValue("@n", name);
                 using (var r = cmd.ExecuteReader())
                 {
@@ -118,7 +118,7 @@ namespace Monster_trucks.Data
             using (var cmd = connection.CreateCommand())
             {
                 cmd.Transaction = transaction;
-                cmd.CommandText = "SELECT COUNT(*) FROM Locations";
+                cmd.CommandText = "SELECT COUNT(*) FROM Location";
                 count = Convert.ToInt32(cmd.ExecuteScalar());
             }
 
