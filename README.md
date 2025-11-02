@@ -127,21 +127,20 @@ Projektet demonstrerar praktisk tillämpning av:
 
 ---
 
-## 📸 Skärmdumpar  
+## 📸 Skärmdumpar
 
-*(Byt ut dessa länkar mot dina egna bilder när du tar dem)*  
+1. **Programstart & meny**
+![Screenshot 1](./Monster%20trucks/screenshots/1-startmenu.png)
 
-1. **Programstart & menyn**  
-   ![Screenshot 1](screenshots/1-startmenu.png)
+2. **Databas seeding och exempeldata**
+![Screenshot 2](./Monster%20trucks/screenshots/2-seeding.png)
 
-2. **Databas seeding och exempeldata**  
-   ![Screenshot 2](screenshots/2-seeding.png)
+3. **Observationer och rapportvy**
+![Screenshot 3](./Monster%20trucks/screenshots/3-report.png)
 
-3. **Observationer och rapportvy**  
-   ![Screenshot 3](screenshots/3-report.png)
+4. **Felhantering vid försök att radera monster med observationer**
+![Screenshot 4](./Monster%20trucks/screenshots/4-error.png)
 
-4. **Felhantering vid försök att radera monster med observationer**  
-   ![Screenshot 4](screenshots/4-error.png)
 
 ---
 
