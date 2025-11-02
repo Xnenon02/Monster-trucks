@@ -56,9 +56,7 @@ namespace Monster_trucks.Services
         public void AddObservation(Observation observation) => _observationRepo.Create(observation);
         public List<Observation> GetAllObservation() => _observationRepo.ReadAll();
 
-        // ======================================================
-        // 📊 RAPPORTER & STATISTIK (VG)
-        // ======================================================
+       
 
         // 1️⃣ Mest aktiva monster
         public void ReportMostActiveMonster()
@@ -130,9 +128,7 @@ namespace Monster_trucks.Services
             }
         }
 
-        // ======================================================
-        // 💾 EXPORT (VG)
-        // ======================================================
+        
 
         public void ExportObservationToCsv(string filePath)
         {
@@ -198,9 +194,7 @@ namespace Monster_trucks.Services
             Console.WriteLine($"✅ Exporterad till JSON: {filePath}");
         }
 
-        // ======================================================
-        // 🔄 TRANSAKTION – Flytta observation till ny plats (VG)
-        // ======================================================
+        
 
         public void MoveObservationToNewLocation(int observationId, int newLocationId)
         {

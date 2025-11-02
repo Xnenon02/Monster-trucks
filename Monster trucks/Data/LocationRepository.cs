@@ -1,11 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
-
+using Monster_trucks.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Monster_trucks.Models;
 
 namespace Monster_trucks.Data
 {
@@ -18,7 +14,7 @@ namespace Monster_trucks.Data
             _connectionString = connectionString;
         }
 
-        // CREATE
+        // === CREATE ===
         public void Create(Location location, SqliteConnection connection = null, SqliteTransaction transaction = null)
         {
             bool ownConn = connection == null;
@@ -31,7 +27,9 @@ namespace Monster_trucks.Data
             using (var cmd = connection.CreateCommand())
             {
                 cmd.Transaction = transaction;
-                cmd.CommandText = "INSERT INTO Location (Name, Description, DangerLevel) VALUES (@n, @d, @l)";
+                cmd.CommandText = @"
+                    INSERT INTO Location (Name, Description, DangerLevel)
+                    VALUES (@n, @d, @l)";
                 cmd.Parameters.AddWithValue("@n", location.Name);
                 cmd.Parameters.AddWithValue("@d", location.Description ?? "");
                 cmd.Parameters.AddWithValue("@l", location.DangerLevel);
@@ -41,7 +39,7 @@ namespace Monster_trucks.Data
             if (ownConn) connection.Close();
         }
 
-        // READ ALL
+        // === READ ALL ===
         public List<Location> ReadAll()
         {
             var list = new List<Location>();
@@ -59,7 +57,7 @@ namespace Monster_trucks.Data
                             {
                                 Id = r.GetInt32(0),
                                 Name = r.GetString(1),
-                                Description = r.GetString(2),
+                                Description = r.IsDBNull(2) ? "" : r.GetString(2),
                                 DangerLevel = r.GetInt32(3)
                             });
                         }
@@ -69,8 +67,8 @@ namespace Monster_trucks.Data
             return list;
         }
 
-        // GET BY NAME
-        public Location GetByName(string name, SqliteConnection connection = null, SqliteTransaction transaction = null)
+        // === READ BY ID ===
+        public Location? ReadById(int id, SqliteConnection connection = null, SqliteTransaction transaction = null)
         {
             bool ownConn = connection == null;
             if (ownConn)
@@ -79,32 +77,117 @@ namespace Monster_trucks.Data
                 connection.Open();
             }
 
-            Location loc = null;
+            Location location = null;
             using (var cmd = connection.CreateCommand())
             {
                 cmd.Transaction = transaction;
-                cmd.CommandText = "SELECT Id, Name, Description, DangerLevel FROM Location WHERE Name = @n";
-                cmd.Parameters.AddWithValue("@n", name);
-                using (var r = cmd.ExecuteReader())
+                cmd.CommandText = "SELECT Id, Name, Description, DangerLevel FROM Location WHERE Id = @id";
+                cmd.Parameters.AddWithValue("@id", id);
+
+                using (var reader = cmd.ExecuteReader())
                 {
-                    if (r.Read())
+                    if (reader.Read())
                     {
-                        loc = new Location
+                        location = new Location
                         {
-                            Id = r.GetInt32(0),
-                            Name = r.GetString(1),
-                            Description = r.GetString(2),
-                            DangerLevel = r.GetInt32(3)
+                            Id = reader.GetInt32(0),
+                            Name = reader.GetString(1),
+                            Description = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                            DangerLevel = reader.GetInt32(3)
                         };
                     }
                 }
             }
 
             if (ownConn) connection.Close();
-            return loc;
+            return location;
         }
 
-        // COUNT
+        // === READ BY NAME ===
+        public Location? GetByName(string name, SqliteConnection connection = null, SqliteTransaction transaction = null)
+        {
+            bool ownConn = connection == null;
+            if (ownConn)
+            {
+                connection = new SqliteConnection(_connectionString);
+                connection.Open();
+            }
+
+            Location location = null;
+            using (var cmd = connection.CreateCommand())
+            {
+                cmd.Transaction = transaction;
+                cmd.CommandText = "SELECT Id, Name, Description, DangerLevel FROM Location WHERE Name = @n";
+                cmd.Parameters.AddWithValue("@n", name);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        location = new Location
+                        {
+                            Id = reader.GetInt32(0),
+                            Name = reader.GetString(1),
+                            Description = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                            DangerLevel = reader.GetInt32(3)
+                        };
+                    }
+                }
+            }
+
+            if (ownConn) connection.Close();
+            return location;
+        }
+
+        // === UPDATE ===
+        public void Update(Location location, SqliteConnection connection = null, SqliteTransaction transaction = null)
+        {
+            bool ownConn = connection == null;
+            if (ownConn)
+            {
+                connection = new SqliteConnection(_connectionString);
+                connection.Open();
+            }
+
+            using (var cmd = connection.CreateCommand())
+            {
+                cmd.Transaction = transaction;
+                cmd.CommandText = @"
+                    UPDATE Location
+                    SET Name = @n, Description = @d, DangerLevel = @l
+                    WHERE Id = @id";
+                cmd.Parameters.AddWithValue("@n", location.Name);
+                cmd.Parameters.AddWithValue("@d", location.Description ?? "");
+                cmd.Parameters.AddWithValue("@l", location.DangerLevel);
+                cmd.Parameters.AddWithValue("@id", location.Id);
+                cmd.ExecuteNonQuery();
+            }
+
+            if (ownConn) connection.Close();
+        }
+
+        // === DELETE ===
+        public void Delete(int id, SqliteConnection connection = null, SqliteTransaction transaction = null)
+        {
+            bool ownConn = connection == null;
+            if (ownConn)
+            {
+                connection = new SqliteConnection(_connectionString);
+                connection.Open();
+            }
+
+            using (var cmd = connection.CreateCommand())
+            {
+                cmd.Transaction = transaction;
+                cmd.CommandText = "DELETE FROM Location WHERE Id = @id";
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+            }
+
+            if (ownConn) connection.Close();
+        }
+
+        // === COUNT ===
         public int Count(SqliteConnection connection = null, SqliteTransaction transaction = null)
         {
             bool ownConn = connection == null;
