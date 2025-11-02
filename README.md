@@ -126,20 +126,19 @@ Projektet demonstrerar praktisk tillämpning av:
 - Felhantering och robust kodstruktur  
 
 ---
-
 ## 📸 Skärmdumpar
 
 1. **Programstart & meny**
-![Screenshot 1](./Monster%20trucks/screenshots/1-startmenu.png)
+![Screenshot 1](./Monster%20trucks/screenshots/screenshots1-startmenu.png)
 
 2. **Databas seeding och exempeldata**
-![Screenshot 2](./Monster%20trucks/screenshots/2-seeding.png)
+![Screenshot 2](./Monster%20trucks/screenshots/screenshots2-seeding.png)
 
 3. **Observationer och rapportvy**
-![Screenshot 3](./Monster%20trucks/screenshots/3-report.png)
+![Screenshot 3](./Monster%20trucks/screenshots/screenshots3-report.png)
 
 4. **Felhantering vid försök att radera monster med observationer**
-![Screenshot 4](./Monster%20trucks/screenshots/4-error.png)
+![Screenshot 4](./Monster%20trucks/screenshots/screenshots4-error.png)
 
 
 ---
